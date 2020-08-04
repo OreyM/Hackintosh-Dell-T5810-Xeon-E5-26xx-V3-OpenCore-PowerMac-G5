@@ -19,7 +19,7 @@ It's worth noting that synthetic benchmarks show better performance compared to 
 At the moment, my system has the following characteristics:
 
 | Accessories | Model |
-| ----------------------- | ------------------------- ------------------------------------------- |
+| ----------------------- | ------------------------- |------------------------------------------- |
 | Motherboard | Dell T5810, C610 / 612 chip |
 | CPU | Intel Xeon E5-2620 v3 |
 | GPU | PowerColor Red Devil RX 570 4Gb |
@@ -59,19 +59,21 @@ I highly recommend using the Fenvi T919 WiFi/BT card. It's recognized by the ope
 |        |      |
 |--------|------|
 | chipset | Intel(R) C610, C612 |
-| VRM    | 6-ти фазовое |
-| RAM | 8-мь DIMM слотов 2133/ 2400/ 2666 DDR4 RDIMM с поддержкой ECC, максимальный объем — 256 Гб |
+| VRM    | 6's phase |
+| RAM | 8xDIMM 2133/2400/2666 DDR4 RDIMM ECC, max — 256 Гб |
 | PCI Express 3.0 x16 | 2x 16 GB/s |
 | PCI Express 3.0 x8 | 1x 8 GB/s |
 | PCI Express 2.0 x4 | 1x 2 GB/s |
 | PCI Express 2.0 x1 | 1x 0.5 GB/s |
 | PCI 2.3 (32 bit, 33 MHz) | 1x 133 MB/s |
-| audio chip | Realtek ALC3220 (ребрендинг ALC280) |
+| audio chip | Realtek ALC3220 (rebranding ALC280 chip) |
 | Ethetnet | Intel i217 |
 | SATA | 4xSATA 3.0 HDD; 2xSATA 3.0 ODD |
 | USB | xUSB 3.0; 6xUSB 2.0 |
 
 ### Rear motherboard connectors
+
+![img](img/dell-04.png)
 
 11. Line-in microphone jack
 12. Serial port connector
@@ -228,5 +230,184 @@ As mentioned earlier, the motherboard is very moody, and if you get such a criti
 
 then you have a problem with the BIOS. All drivers, patches and kext to fix this error are installed. You either configured it incorrectly or your BIOS version has problems. Check your settings or flash a different BIOS version.
 
-[BIOS A11](bios/A11.zip)  
-[BIOS A09](bios/A09.zip)
+[BIOS A11](src/bios/A11.zip)  
+[BIOS A09](src/bios/A09.zip)
+
+## Bootloader
+
+### Clover
+
+[EFI](src/clover/BestEFI%20HighSierra%20UnknCPU.zip)
+
+This bootloader is based on Clover. It is designed to fit 10.13 High Sierra installations.
+
+[Documentation](https://sourceforge.net/p/cloverefiboot/wiki/Home/)
+
+[Releases](https://github.com/CloverHackyColor/CloverBootloader/releases)
+
+### OpenCore
+
+[EFI](src/opencore/EFI.zip)
+
+This bootloader allows you to run Mac OS 10.15 Catalina. The system works stably like a native one. Updated to the latest version.
+
+![img](img/test.png)
+
+Overall performance on par with MacPro 2013.
+
+Note that you need to configure SMBIOS to activate Apple apps.
+
+[Documentation](https://dortania.github.io/OpenCore-Install-Guide/prerequisites.html#prerequisites)
+
+[OpenCORE Kernel & Kext patch for X99/X299 motherboard](https://www.insanelymac.com/forum/topic/341477-open-core-kernel-kext-patch-for-x99x299-motherboard/)
+
+## Hardware and software lifehacks
+
+### Case cooling
+
+At the moment, for blowing out hot air, a native solution from Apple is used, but replacing the coolers with 90mm ARCTIC F9 PWM. Coolers are very quiet, connected to a 4-pin connector on the motherboard, and are responsible for blowing out. It turned out to be a very effective solution.
+
+![img](img/back-cooler.png)
+
+### PSU
+
+In this project, the Kolink KL-850M power supply is used. A very good block. It was decided to integrate it into the case from the native Powermac G5 power supply. The element base fits perfectly in it.
+
+![img](img/psu-01.png)
+![img](img/psu-02.png)
+
+### Connecting motherboard power
+
+In addition to the standard 24-pin motherboard connector, additional 12V must be connected. I took them from a 6-pin video card power cable.
+
+![img](img/dell-02.png)
+![img](img/dell-03.png)
+
+### Connecting CPU power
+
+Please note that the processor power input is 10-pin. To power it, we need an 8-pin power cable (or take it from a 6-pin video card power cable through adapters). It is connected with yellow wires inward, the connectors are scattered around the edges. The two middle pins on the board connector are empty.
+
+![img](img/cpu-power.png)
+
+### Powermac G5 front panel pinout
+
+To connect to the front panel of the Powermac G5, a native connector is used:
+
+![img](img/front-panel-01.png)
+
+As well as standard IBM PC cables:
+
+![img](img/ibmpc.png)
+
+Connector pinout:
+
+![img](img/front-panel-02.png)
+
+Standard motherboard pinout (NOT Dell T5810, there are nuances in audio)
+
+![img](img/front-panel-03.png)
+
+The signed pins are marked in green on the AUDIO connector.
+
+Power button connection:
+
+![img](img/front-panel-04.png)
+
+USB connection:
+
+![img](img/front-panel-05.png)
+
+Audio input connection:
+
+![img](img/front-panel-06.png)
+
+Although its connection is not more difficult than the same USB input, there is one caveat. Apple is showing off, and it works a little differently than we are used to. I mean, when you plug in some device, the sound will not go to it. It is necessary to manually switch the audio output source in the operating system panel. According to the logic of the pinout of the front panel cable, the 16th pin should be responsible for the same operation. But no ... Although most likely, it works as it should, but only on motherboards from Apple.
+
+FireWire connection:
+
+![img](img/front-panel-07.png)
+
+### Status LED connection
+
+The LED indicator cable is located here, and connects like this:
+
+![img](img/led.png)
+![img](img/led-02.png)
+
+### Sound launch
+
+The motherboard uses a **Realtek ALC280** chip. OpenCore has two kext - AppleALC and VoodooHDA.
+
+AppleALC gives better sound quality and it really is. Sound quality like an iMac or Macbook Pro.
+
+Unfortunately, VoodooHDA will show a mediocre sound, but sufficient for an undemanding user. At the moment, the advantage of VoodooHDA is that it works with sound from HDMI and DisplayPort video cards (**information is being verified**). I use AppleALC and it is activated in OpenCore.
+
+If at the moment the sound from the video outputs of your video card is critical for you, just deactivate AppleALC in OpenCore and activate VoodooHDA.
+
+For sound factory (via AppleALC) layout 13 is required (**information is being verified**). Other layout: `3, 4, 11, 13, 15, 16, 21`.
+
+[OpenCore instruction](https://dortania.github.io/OpenCore-Post-Install/universal/audio.html#fixing-audio-with-applealc)
+
+### Connecting the video card power
+
+If your video card has external power supply (and all recommended cards do, with the exception of the RX550), then most likely the power outlet will be located at the top of the video card. In this case, you cannot close the plastic (transparent) bezel from the Powermac G5.
+
+![img](img/panel.png)
+
+To solve this problem, I recommend using [this adapter](https://aliexpress.ru/item/4000079935335.html). 
+
+![img](img/gpu-addapter.png)
+
+### WiFi/BT cards
+
+Use only PCI cards. Do not use USB. Look for cards with a Broadcomn chipset like BCM94360CS2 or BCM943602CS. Search on AliExpress for `Hackintosh WiFi`. At the moment, the most optimal Fenvi T919 - it is defined by Mac OS as native, there is no need to install drivers.
+
+### BT connection on Fenvi T919 card
+
+For BT connection, this card requires USB connection. A standard INNER connector is used, which can cause you problems if this connector is already used on your motherboard, or it is one of a kind (as on the Dell T5810). My solution was to use [this adapter](https://aliexpress.ru/item/4000130915121.html).
+
+![img](img/usb-addapter.png)
+
+### CPU cooler pinout
+
+It should be noted that the cooler's power connector is 5-pin.
+
+![img](img/fan-pin.png)
+
+## CPU Banch
+
+| CPU                    | Core  | PBF/MTF GHz  | Cache L3  | TDP   | Max C° | Overall | **%**    | SCore | **%**    | MCore | **%**    | Price |
+|------------------------|-------|--------------|-----------|-------|--------|---------|----------|-------|----------|-------|----------|-------|
+| Intel Core i7-9700     | 8/8   | 3.0 / 4.7    | 12 Mb     | 65 W  | 100°   | 8783    | **104%** | 5829  | **143%** | 30724 | **109%** | 390$  |
+| Intel Core i3-8100     | 4/4   | 3.6 / 3.6    | 6 Mb      | 65 W  | 100°   | 3874    | **46%**  | 4928  | **132%** | 14714 | **48%**  | 130$  |
+| AMD Ryzen 7 2700       | 8/16  | 3.2 / 4.1    | 16 Mb     | 65 W  | 95°    | 9325    | **110%** | 4687  | **129%** | 25781 | **92%**  | 175$  |
+| AMD Ryzen 5 1600       | 6/12  | 3.2 / 3.6    | 16 Mb     | 65 W  | 95°    | 6817    | **81%**  | 5167  | **135%** | 24095 | **86%**  | 103$  |
+| Intel Xeon E5-1620 v3  |  4/8  | 3.5 / 3.6    | 10 Mb     | 130 W | 70°    | 4034    | **48%**  | 3811  | **112%** | 14196 | **51%**  | 33$   |
+| Intel Xeon E5-1630 v3  |  4/8  | 3.7 / 3.8    | 10 Mb     | 140 W | 66.2°  | 4533    | **54%**  | 4417  | **124%** | 15976 | **57%**  | 46$   |
+| Intel Xeon E5-1650 v3  | 6/12  | 3.5 / 3.8    | 15 Mb     | 140 W | 66.7°  | 6446    | **77%**  | 4884  | **131%** | 24751 | **88%**  | 102$  |
+| Intel Xeon E5-1660 v3  | 8/16  | 3.0 / 3.5    | 20 Mb     | 140 W | 65.9°  | 7269    | **87%**  | 4916  | **132%** | 28979 | **103%** | 235$  |
+| Intel Xeon E5-1680 v3  | 8/16  | 3.2 / 3.8    | 25 Mb     | 140 W | 66.26° | 7968    | **95%**  | 5652  | **141%** | 32720 | **124%** | 290$  |
+| Intel Xeon E5-2620 v3  | 6/12  | 2.4 / 3.2    | 15 Mb     | 85 W  | 72.6°  | 4750    | **57%**  | 3849  | **113%** | 19050 | **68%**  | 14$   |
+| Intel Xeon E5-2630 v3  | 8/16  | 2.4 / 3.2    | 20 Mb     | 85 W  | 72.1°  | 6138    | **73%**  | 3820  | **122%** | 22642 | **81%**  | 82$   |
+| Intel Xeon E5-2630L v3 | 8/16  | 1.8 / 2.9    | 20 Mb     | 55 W  | 60.4°  | 4500    | **50%**  | 3178  | **95%**  | 13994 | **50%**  | 36$   |
+| Intel Xeon E5-2640 v3  | 8/16  | 2.6 / 3.4    | 20 Mb     | 90 W  | 74.3°  | 6310    | **75%**  | 3871  | **114%** | 21155 | **75%**  | 68$   |
+| Intel Xeon E5-2650 v3  | 10/20 | 2.3 / 3.0    | 25 Mb     | 105 W | 78.9°  | 7261    | **86%**  | 3584  | **107%** | 23971 | **85%**  | 62$   |
+| Intel Xeon E5-2660 v3  | 10/20 | 2.6 / 3.3    | 25 Mb     | 105 W | 79°    | 7938    | **95%**  | 3458  | **103%** | 24289 | **87%**  | 86$   |
+| Intel Xeon E5-2670 v3  | 12/24 | 2.3 / 3.1    | 30 Mb     | 120 W | 84.5°  | 7828    | **93%**  | 3616  | **107%** | 24316 | **87%**  | 90$   |
+| Intel Xeon E5-2678 v3  | 12/24 | 2.5 / 3.3    | 30 Mb     | 120 W | 66.4°  | 8396    | **100%** | 3347  | **100%** | 28074 | **100%** | 105$  |
+| Intel Xeon E5-2680 v3  | 12/24 | 2.5 / 3.5    | 30 Mb     | 120 W | 82.5°  | 8965    | **106%** | 3356  | **100%** | 26862 | **96%**  | 137$  |
+| Intel Xeon E5-2690 v3  | 12/24 | 2.6 / 3.5    | 30 Mb     | 135 W | 89.9°  | 9564    | **112%** | 4026  | **117%** | 30206 | **107%** | 240$  |
+
+
+* PBF - Processor Base Frequency
+* MTF - Max Turbo Frequency
+
+## RESULT
+
+![img](img/finish-1.png)
+![img](img/finish-2.png)
+![img](img/finish-3.png)
+
+## Thanks
+
+Special thanks to [sebaxakerhtc](https://w3bsit3-dns.com/forum/index.php?showuser=2092640), [antico](https://w3bsit3-dns.com/forum/index.php?showuser=4709617) and [lonehune](https://w3bsit3-dns.com/forum/index.php?showuser=3977977). These guys helped with the programmatic part of setting up the startup and normal operation of Mac OS.
