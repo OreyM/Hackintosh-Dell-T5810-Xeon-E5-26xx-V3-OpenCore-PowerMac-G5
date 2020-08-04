@@ -19,7 +19,7 @@ It's worth noting that synthetic benchmarks show better performance compared to 
 At the moment, my system has the following characteristics:
 
 | Accessories | Model |
-| ----------------------- | ------------------------- |------------------------------------------- |
+| ----------------------- | ------------------------- |
 | Motherboard | Dell T5810, C610 / 612 chip |
 | CPU | Intel Xeon E5-2620 v3 |
 | GPU | PowerColor Red Devil RX 570 4Gb |
