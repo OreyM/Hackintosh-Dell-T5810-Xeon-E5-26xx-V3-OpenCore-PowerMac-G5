@@ -1,4 +1,4 @@
-# Dell T5810 Hackintosh (Xeon E5-26xx, AMD GPU, OpenCore/Clover)
+# Dell T5810 Hackintosh (Xeon E5-26xx, AMD GPU, OpenCore/Clover, PowerMac G5 Case)
 
 ![img](../img/prewie.png)
 
@@ -312,7 +312,7 @@
 
 ### OpenCore
 
-[EFI](opencore/EFI.zip)
+[Bootloader realese](https://github.com/OreyM/Hackintosh-Dell-T5810-Xeon-E5-26xx-V3-OpenCore-PowerMac-G5/releases)
 
 Данный загрузчик позволяет запустить Mac OS 10.15 Catalina. Система работает стабильно, как родная. Обновляется до последней версии.
 

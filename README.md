@@ -1,4 +1,4 @@
-# Dell T5810 Hackintosh (Xeon E5-26xx, AMD GPU, OpenCore/Clover)
+# Dell T5810 Hackintosh (Xeon E5-26xx, AMD GPU, OpenCore/Clover, PowerMac G5 Case)
 
 ![img](img/prewie.png)
 
@@ -247,7 +247,7 @@ This bootloader is based on Clover. It is designed to fit 10.13 High Sierra inst
 
 ### OpenCore
 
-[EFI](src/opencore/EFI.zip)
+[Bootloader realese](https://github.com/OreyM/Hackintosh-Dell-T5810-Xeon-E5-26xx-V3-OpenCore-PowerMac-G5/releases)
 
 This bootloader allows you to run Mac OS 10.15 Catalina. The system works stably like a native one. Updated to the latest version.
 
