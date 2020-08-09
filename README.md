@@ -27,7 +27,7 @@ At the moment, my system has the following characteristics:
 | WiFi/BT card | [Fenvi T919](https://aliexpress.ru/item/32778371977.html) |
 | Case | Powermac G5 |
 | NVME PCIEx16 adapter | [JEYI SK8-NEW](https://www.aliexpress.com/item/4000031943679.html) |
-| CPU Cooling | |
+| CPU Cooling | Arsylid CN-609-P |
 | Case cooling | 2x ARCTIC F9 PWM |
 | PSU | Kolink KL-850M 80 Plus Bronze 850W |
 

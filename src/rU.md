@@ -30,7 +30,7 @@
 | WiFi/BT карта         | [Fenvi T919](https://aliexpress.ru/item/32778371977.html)          |
 | Корпус                | Powermac G5                                                        |
 | NVME PCIEx16 адаптер  | [JEYI SK8-NEW](https://www.aliexpress.com/item/4000031943679.html) |
-| Охлаждение процессора |                                                                    |
+| Охлаждение процессора |  Arsylid CN-609-P                                   |
 | Охлажение корпуса     | 2x ARCTIC F9 PWM                                                   |
 | Блок питания          | Kolink KL-850M 80 Plus Bronze 850W                                 |
 
