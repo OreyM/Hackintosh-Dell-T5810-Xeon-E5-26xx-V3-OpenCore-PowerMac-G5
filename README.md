@@ -1,6 +1,6 @@
 # Dell T5810 Hackintosh (Xeon E5-26xx, AMD GPU, OpenCore/Clover, PowerMac G5 Case)
 
-![img](img/prewie.png)
+![img](img/prewie.png) 
 
 [Русская версия](src/rU.md)
 
